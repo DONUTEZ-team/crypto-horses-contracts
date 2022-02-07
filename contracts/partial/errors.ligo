@@ -1,5 +1,5 @@
 module Game is {
-  const err : string = "100";
+  const err_ubinetic_fulfill_entrypoint_404 : string = "100";
 }
 
 module Common is {

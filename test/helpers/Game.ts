@@ -1,4 +1,9 @@
-import { OriginationOperation, TezosToolkit, Contract } from "@taquito/taquito";
+import {
+  OriginationOperation,
+  TransactionOperation,
+  TezosToolkit,
+  Contract,
+} from "@taquito/taquito";
 
 import fs from "fs";
 
@@ -57,7 +62,38 @@ export class Game {
     return new Game(await tezos.contract.at(operation.contractAddress), tezos);
   }
 
-  async updateStorage(): Promise<void> {
-    this.storage = await this.contract.storage();
+  async updateStorage(maps = {}): Promise<void> {
+    const storage: GameStorage = await this.contract.storage();
+
+    this.storage = storage;
+
+    for (const key in maps) {
+      this.storage[key] = await maps[key].reduce(
+        async (prev: any, current: any) => {
+          try {
+            return {
+              ...(await prev),
+              [current]: await storage[key].get(current),
+            };
+          } catch (ex) {
+            return {
+              ...(await prev),
+              [current]: 0,
+            };
+          }
+        },
+        Promise.resolve({})
+      );
+    }
+  }
+
+  async bet(script: string, payload: string): Promise<TransactionOperation> {
+    const operation: TransactionOperation = await this.contract.methodsObject
+      .bet({ script, payload })
+      .send();
+
+    await confirmOperation(this.tezos, operation.hash);
+
+    return operation;
   }
 }

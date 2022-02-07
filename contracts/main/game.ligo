@@ -7,6 +7,7 @@
 #include "../partial/common_helpers.ligo"
 
 #include "../partial/game/game_types.ligo"
+#include "../partial/game/game_helpers.ligo"
 #include "../partial/game/game_methods.ligo"
 
 function main(
@@ -14,5 +15,6 @@ function main(
   const s               : storage_t)
                         : return_t is
   case action of
-  | Test -> test(Unit, s)
+  | Bet(params) -> bet(params, s)
+  | Default     -> default(s)
   end

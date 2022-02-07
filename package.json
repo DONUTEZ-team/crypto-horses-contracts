@@ -5,12 +5,12 @@
   "description": "Tezos Hackaton 2022 (Ubinetic)",
   "scripts": {
     "start-sandbox": "docker run --rm --name my-sandbox -e flextesa_node_cors_origin='*' -e block_time=1 --detach -p 8732:20000 tqtezos/flextesa:20211119 hangzbox start",
-    "clean": "rm -rf ./build ./contracts/compiled",
+    "clean": "rm -rf ./build",
     "compile": "yarn clean && ts-node scripts/cli.ts compile -f json",
     "migrate": "yarn compile && ts-node scripts/cli.ts migrate",
     "migrate-hangzhounet": "yarn compile && ts-node scripts/cli.ts migrate -n hangzhounet",
     "migrate-mainnet": "yarn compile && ts-node scripts/cli.ts migrate -n mainnet",
-    "test": "ts-mocha --paths test/tests/**/*.spec.ts --bail"
+    "test": "ts-mocha --paths test/tests/*.spec.ts --bail"
   },
   "repository": {
     "type": "git",

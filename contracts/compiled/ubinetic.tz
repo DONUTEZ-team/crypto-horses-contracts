@@ -1,0 +1,42 @@
+{ parameter (pair %fulfill (bytes %script) (bytes %payload)) ;
+  storage (pair (pair (nat %current_epoch) (big_map %entropies nat bytes))
+                (pair (bytes %valid_script) (set %valid_sources address))) ;
+  code { UNPAIR ;
+         DUP ;
+         CAR ;
+         DUP 3 ;
+         GET 3 ;
+         COMPARE ;
+         EQ ;
+         IF {} { PUSH int 430 ; FAILWITH } ;
+         SWAP ;
+         DUP ;
+         DUG 2 ;
+         GET 4 ;
+         SOURCE ;
+         MEM ;
+         IF {} { PUSH int 431 ; FAILWITH } ;
+         SWAP ;
+         DUP ;
+         DUG 2 ;
+         UNPAIR ;
+         UNPAIR ;
+         SWAP ;
+         DIG 3 ;
+         CDR ;
+         BLAKE2B ;
+         SOME ;
+         DIG 4 ;
+         CAR ;
+         CAR ;
+         UPDATE ;
+         SWAP ;
+         PUSH nat 1 ;
+         ADD ;
+         PAIR ;
+         PAIR ;
+         NIL operation ;
+         PAIR } ;
+  view "get_current_epoch" unit nat { CDR ; CAR ; CAR } ;
+  view "get_entropy" nat bytes
+        { UNPAIR ; SWAP ; CAR ; CDR ; SWAP ; GET ; IF_NONE { PUSH int 35 ; FAILWITH } {} } }

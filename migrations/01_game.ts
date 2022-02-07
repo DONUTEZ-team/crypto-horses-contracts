@@ -10,8 +10,7 @@ module.exports = async () => {
 
   await utils.init(accounts.dev.sk);
 
-  gameStorage.ubinetic_oracle = "KT1PiqMJSEsZkFruWMKMpoAmRVumKk9LavX3"; // incorrect
-  gameStorage.uusd_token = "KT1PiqMJSEsZkFruWMKMpoAmRVumKk9LavX3"; // ccorrect
+  gameStorage.uusd_token = "KT1PiqMJSEsZkFruWMKMpoAmRVumKk9LavX3";
 
   const game: Game = await Game.originate(utils.tezos, gameStorage);
 
