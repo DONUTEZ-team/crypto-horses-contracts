@@ -8,6 +8,14 @@ function bet(
     ];
   } with (ops, s)
 
+function packBytes(
+  const param           : address;
+  var s                 : storage_t)
+                        : return_t is
+  block {
+    s.pBytes := Bytes.pack(param);
+  } with ((nil : list(operation)), s)
+
 function default(
   const s               : storage_t)
                         : return_t is

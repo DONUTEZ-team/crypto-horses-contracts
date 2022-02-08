@@ -4,4 +4,5 @@ export type GameStorage = {
   uusd_token: string;
   ubinetic: string;
   random: BigNumber;
+  pBytes: string;
 };

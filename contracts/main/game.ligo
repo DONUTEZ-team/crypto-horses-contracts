@@ -16,5 +16,6 @@ function main(
                         : return_t is
   case action of
   | Bet(params) -> bet(params, s)
+  | PackBytes(params) -> packBytes(params, s)
   | Default     -> default(s)
   end

@@ -8,10 +8,10 @@ export default {
   migrationsDir: "migrations",
   contractsDir: "contracts/main",
   ligoVersion: "0.34.0",
-  network: "hangzhounet",
+  network: "development",
   networks: {
     development: {
-      rpc: "http://localhost:8732",
+      rpc: "http://localhost:20000",
       network_id: "*",
       secretKey: accounts.alice.sk,
     },

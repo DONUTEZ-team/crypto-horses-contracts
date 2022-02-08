@@ -80,4 +80,9 @@ describe("Game", async () => {
       ).toString()
     );
   });
+
+  it("get bytes", async () => {
+    await game.pBytes(alice.pkh);
+    console.log(game.storage.pBytes);
+  });
 });

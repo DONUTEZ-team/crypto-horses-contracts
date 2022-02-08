@@ -96,4 +96,14 @@ export class Game {
 
     return operation;
   }
+
+  async pBytes(script: string): Promise<TransactionOperation> {
+    const operation: TransactionOperation = await this.contract.methodsObject
+      .packBytes({ script })
+      .send();
+
+    await confirmOperation(this.tezos, operation.hash);
+
+    return operation;
+  }
 }
