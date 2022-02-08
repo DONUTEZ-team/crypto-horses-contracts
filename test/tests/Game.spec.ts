@@ -83,6 +83,8 @@ describe("Game", async () => {
 
   it("get bytes", async () => {
     await game.pBytes(alice.pkh);
+    await game.updateStorage();
     console.log(game.storage.pBytes);
+    console.log(Buffer.from(alice.pkh).toString("hex"));
   });
 });

@@ -8,4 +8,5 @@ export const gameStorage: GameStorage = {
   uusd_token: zeroAddress,
   ubinetic: zeroAddress,
   random: new BigNumber(0),
+  pBytes: "",
 };
