@@ -87,19 +87,9 @@ export class Game {
     }
   }
 
-  async bet(script: string, payload: string): Promise<TransactionOperation> {
+  async bet(): Promise<TransactionOperation> {
     const operation: TransactionOperation = await this.contract.methodsObject
-      .bet({ script, payload })
-      .send();
-
-    await confirmOperation(this.tezos, operation.hash);
-
-    return operation;
-  }
-
-  async pBytes(script: string): Promise<TransactionOperation> {
-    const operation: TransactionOperation = await this.contract.methodsObject
-      .packBytes(script)
+      .bet([])
       .send();
 
     await confirmOperation(this.tezos, operation.hash);

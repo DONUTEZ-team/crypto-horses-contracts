@@ -11,7 +11,7 @@ export default {
   network: "development",
   networks: {
     development: {
-      rpc: "http://localhost:20000",
+      rpc: "http://localhost:8732",
       network_id: "*",
       secretKey: accounts.alice.sk,
     },

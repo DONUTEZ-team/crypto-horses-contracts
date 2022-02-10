@@ -1,19 +1,14 @@
-import {
-  OriginationOperation,
-  TransactionOperation,
-  TezosToolkit,
-  Contract,
-} from "@taquito/taquito";
+import { OriginationOperation, TezosToolkit, Contract } from "@taquito/taquito";
 
 import fs from "fs";
 
 import { confirmOperation } from "../../scripts/confirmation";
 
-import { UbineticStorage } from "../types/Ubinetic";
+import { RandomizerStorage } from "../types/Randomizer";
 
-export class Ubinetic {
+export class Randomizer {
   contract: Contract;
-  storage: UbineticStorage;
+  storage: RandomizerStorage;
   tezos: TezosToolkit;
 
   constructor(contract: Contract, tezos: TezosToolkit) {
@@ -22,18 +17,18 @@ export class Ubinetic {
   }
 
   static async init(
-    ubineticAddress: string,
+    randomizerAddress: string,
     tezos: TezosToolkit
-  ): Promise<Ubinetic> {
-    return new Ubinetic(await tezos.contract.at(ubineticAddress), tezos);
+  ): Promise<Randomizer> {
+    return new Randomizer(await tezos.contract.at(randomizerAddress), tezos);
   }
 
   static async originate(
     tezos: TezosToolkit,
-    storage: UbineticStorage
-  ): Promise<Ubinetic> {
+    storage: RandomizerStorage
+  ): Promise<Randomizer> {
     const artifacts: any = fs
-      .readFileSync(`contracts/compiled/ubinetic.tz`)
+      .readFileSync(`contracts/compiled/randomizer.tz`)
       .toString();
     const operation: OriginationOperation = await tezos.contract
       .originate({
@@ -48,14 +43,14 @@ export class Ubinetic {
 
     await confirmOperation(tezos, operation.hash);
 
-    return new Ubinetic(
+    return new Randomizer(
       await tezos.contract.at(operation.contractAddress),
       tezos
     );
   }
 
   async updateStorage(maps = {}): Promise<void> {
-    const storage: UbineticStorage = await this.contract.storage();
+    const storage: RandomizerStorage = await this.contract.storage();
 
     this.storage = storage;
 
@@ -77,18 +72,5 @@ export class Ubinetic {
         Promise.resolve({})
       );
     }
-  }
-
-  async fulfill(
-    script: string,
-    payload: string
-  ): Promise<TransactionOperation> {
-    const operation: TransactionOperation = await this.contract.methodsObject
-      .default({ script, payload })
-      .send();
-
-    await confirmOperation(this.tezos, operation.hash);
-
-    return operation;
   }
 }

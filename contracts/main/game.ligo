@@ -15,7 +15,6 @@ function main(
   const s               : storage_t)
                         : return_t is
   case action of
-  | Bet(params) -> bet(params, s)
-  | PackBytes(params) -> packBytes(params, s)
-  | Default     -> default(s)
+  | Bet     -> bet(s)
+  | Default -> default(s)
   end
