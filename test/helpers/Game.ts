@@ -1,8 +1,12 @@
 import {
   OriginationOperation,
   TransactionOperation,
+  WalletParamsWithKind,
+  WalletOperationBatch,
+  WalletOperation,
   TezosToolkit,
   Contract,
+  OpKind,
 } from "@taquito/taquito";
 
 import fs from "fs";
@@ -10,6 +14,8 @@ import fs from "fs";
 import env from "../../env";
 
 import { confirmOperation } from "../../scripts/confirmation";
+
+import gameLambdas from "../../build/lambdas/game_lambdas.json";
 
 import { GameStorage } from "../types/Game";
 
@@ -65,15 +71,19 @@ export class Game {
   async updateStorage(maps = {}): Promise<void> {
     const storage: GameStorage = await this.contract.storage();
 
-    this.storage = storage;
+    this.storage = {
+      storage: storage.storage,
+      game_lambdas: storage.game_lambdas,
+      metadata: storage.metadata,
+    };
 
     for (const key in maps) {
-      this.storage[key] = await maps[key].reduce(
+      this.storage.storage[key] = await maps[key].reduce(
         async (prev: any, current: any) => {
           try {
             return {
               ...(await prev),
-              [current]: await storage[key].get(current),
+              [current]: await storage.storage[key].get(current),
             };
           } catch (ex) {
             return {
@@ -84,6 +94,32 @@ export class Game {
         },
         Promise.resolve({})
       );
+    }
+  }
+
+  async setLambdas(): Promise<void> {
+    let params: WalletParamsWithKind[] = [];
+    const parts: number = 1;
+
+    for (let i: number = 0; i < gameLambdas.length; ) {
+      for (let j: number = 0; j < Math.ceil(gameLambdas.length / parts); ++j) {
+        if (i + j >= gameLambdas.length) break;
+
+        params.push({
+          kind: OpKind.TRANSACTION,
+          ...this.contract.methods
+            .setup_func(i + j, gameLambdas[i + j])
+            .toTransferParams(),
+        });
+      }
+
+      const batch: WalletOperationBatch = this.tezos.wallet.batch(params);
+      const operation: WalletOperation = await batch.send();
+
+      await confirmOperation(this.tezos, operation.opHash);
+
+      params = [];
+      i += Math.ceil(gameLambdas.length / parts);
     }
   }
 

@@ -50,9 +50,9 @@ describe("Game", async () => {
 
     ubinetic = await Ubinetic.originate(utils.tezos, ubineticStorage);
 
-    gameStorage.randomizer = randomizer.contract.address;
-    gameStorage.ubinetic = ubinetic.contract.address;
-    gameStorage.uusd_token = uusd.contract.address;
+    gameStorage.storage.randomizer = randomizer.contract.address;
+    gameStorage.storage.ubinetic = ubinetic.contract.address;
+    gameStorage.storage.uusd_token = uusd.contract.address;
 
     game = await Game.originate(utils.tezos, gameStorage);
   });
@@ -77,8 +77,8 @@ describe("Game", async () => {
     await game.bet();
     await game.updateStorage();
 
-    console.log(game.storage.current_epoch.toFixed());
-    console.log(game.storage.entropy);
-    console.log(game.storage.random.toFixed());
+    console.log(game.storage.storage.current_epoch.toFixed());
+    console.log(game.storage.storage.entropy);
+    console.log(game.storage.storage.random.toFixed());
   });
 });

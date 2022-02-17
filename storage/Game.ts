@@ -1,3 +1,5 @@
+import { MichelsonMap } from "@taquito/michelson-encoder";
+
 import { zeroAddress } from "../test/helpers/Utils";
 
 import { BigNumber } from "bignumber.js";
@@ -5,10 +7,14 @@ import { BigNumber } from "bignumber.js";
 import { GameStorage } from "../test/types/Game";
 
 export const gameStorage: GameStorage = {
-  uusd_token: zeroAddress,
-  randomizer: zeroAddress,
-  ubinetic: zeroAddress,
-  current_epoch: new BigNumber(0),
-  random: new BigNumber(0),
-  entropy: "",
+  storage: {
+    uusd_token: zeroAddress,
+    randomizer: zeroAddress,
+    ubinetic: zeroAddress,
+    admin: zeroAddress,
+    pending_admin: zeroAddress,
+    races_count: new BigNumber(0),
+  },
+  game_lambdas: MichelsonMap.fromLiteral({}),
+  metadata: MichelsonMap.fromLiteral({}),
 };

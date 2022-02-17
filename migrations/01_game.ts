@@ -10,9 +10,11 @@ module.exports = async () => {
 
   await utils.init(accounts.dev.sk);
 
-  gameStorage.uusd_token = "KT1PiqMJSEsZkFruWMKMpoAmRVumKk9LavX3";
+  gameStorage.storage.uusd_token = "KT1PiqMJSEsZkFruWMKMpoAmRVumKk9LavX3";
 
   const game: Game = await Game.originate(utils.tezos, gameStorage);
+
+  await game.setLambdas();
 
   console.log(`Game: ${game.contract.address}`);
 };

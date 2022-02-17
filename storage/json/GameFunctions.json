@@ -1,0 +1,22 @@
+[
+  {
+    "index": 0,
+    "name": "launch_race"
+  },
+  {
+    "index": 1,
+    "name": "register_horse"
+  },
+  {
+    "index": 2,
+    "name": "bet"
+  },
+  {
+    "index": 3,
+    "name": "set_admin"
+  },
+  {
+    "index": 4,
+    "name": "confirm_admin"
+  }
+]
