@@ -1,11 +1,11 @@
 function set_admin(
-  const new_admin       : set_admin_t;
+  const admin           : set_admin_t;
   var s                 : storage_t)
                         : return_t is
   block {
     only_admin(s.admin);
 
-    s.pending_admin := new_admin;
+    s.pending_admin := admin;
   } with ((nil : list(operation)), s)
 
 function confirm_admin(
@@ -19,11 +19,11 @@ function confirm_admin(
   } with ((nil : list(operation)), s)
 
 function change_ubinetic(
-  const new_ubinetic    : change_ubinetic_t;
+  const ubinetic        : change_ubinetic_t;
   var s                 : storage_t)
                         : return_t is
   block {
     only_admin(s.admin);
 
-    s.ubinetic := new_ubinetic;
+    s.ubinetic := ubinetic;
   } with ((nil : list(operation)), s)
