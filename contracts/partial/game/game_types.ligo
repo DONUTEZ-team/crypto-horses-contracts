@@ -36,10 +36,6 @@ type bet_t              is [@layout:comb] record [
   rid                     : rid_t;
 ]
 
-type set_admin_t        is address
-
-type confirm_admin_t    is unit
-
 type get_random_t       is [@layout:comb] record [
   _from                    : nat;
   _to                      : nat;

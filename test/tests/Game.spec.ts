@@ -56,29 +56,4 @@ describe("Game", async () => {
 
     game = await Game.originate(utils.tezos, gameStorage);
   });
-
-  it("should bet", async () => {
-    await ubinetic.fulfill(
-      ubineticStorage.valid_script,
-      "986d1ec15619b3321e9b0b3389221f059b28361969d8f82185eafc5675fc45f69721a9439fa47e1a9b4cb40490e07b44"
-    );
-    await ubinetic.fulfill(
-      ubineticStorage.valid_script,
-      "2444172bc8f0aeb2340164d3af6cf6bffeda44364e31f6b9453371d3ec20bdc41cdc24a7c043bec38fdd4789e7194e53"
-    );
-    await ubinetic.fulfill(
-      ubineticStorage.valid_script,
-      "97e676dc8522a7f26160001afc0606b603cdd85bb3238f8d3db01aceae18e6ba9f595f1d69353ca5ce1922286bf1b69f"
-    );
-    await ubinetic.fulfill(
-      ubineticStorage.valid_script,
-      "74a3ecfeec36f33bd6e58a9e26c6b03bdb4b9a68fc954f3ed89f4a76cd954d48f2f6d098be55848cdf2cb271700f14f9"
-    );
-    await game.bet();
-    await game.updateStorage();
-
-    console.log(game.storage.storage.current_epoch.toFixed());
-    console.log(game.storage.storage.entropy);
-    console.log(game.storage.storage.random.toFixed());
-  });
 });
