@@ -18,5 +18,13 @@
   {
     "index": 4,
     "name": "confirm_admin"
+  },
+  {
+    "index": 5,
+    "name": "set_min_register_time"
+  },
+  {
+    "index": 6,
+    "name": "set_min_betting_time"
   }
 ]

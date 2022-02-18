@@ -1,31 +1,58 @@
 type rid_t              is nat
 
+type pid_t              is nat
+
+type hid_t              is nat
+
 type bid_t              is [@layout:comb] record [
   bid                     : nat;
+  amt                     : nat;
+]
+
+type participant_t      is [@layput:comb] record [
+  pid                     : pid_t;
+  hid                     : hid_t;
 ]
 
 type race_t             is [@layout:comb] record [
   bids                    : map(address, bid_t);
+  participants            : map(address, participant_t);
   name                    : string;
   location                : string;
   rid                     : rid_t;
   registration_fee        : nat;
   min_bid                 : nat;
   bid_step                : nat;
+  max_participants_count  : nat;
+  participants_count      : nat;
+  registration_start      : timestamp;
+  betting_start           : timestamp;
+  race_start              : timestamp;
 ]
 
 type storage_t          is [@layout:comb] record [
   races                   : big_map(rid_t, race_t);
   uusd_token              : address;
-  randomizer              : address;
-  ubinetic                : address;
+  ubinetic_proxy          : address;
+  randomizer_proxy        : address;
+  horse_nft               : address;
   admin                   : address;
   pending_admin           : address;
   races_count             : nat;
+  min_registration_period : nat;
+  min_betting_period      : nat;
 ]
 
 type launch_race_t      is [@layout:comb] record [
-  horses                  : nat;
+  name                    : string;
+  location                : string;
+  registration_fee        : nat;
+  min_bid                 : nat;
+  bid_step                : nat;
+  max_participants_count  : nat;
+  registration_start      : timestamp;
+  betting_start           : timestamp;
+  race_start              : timestamp;
 ]
 
 type register_horse_t   is [@layout:comb] record [
@@ -34,7 +61,13 @@ type register_horse_t   is [@layout:comb] record [
 
 type bet_t              is [@layout:comb] record [
   rid                     : rid_t;
+  hid                     : hid_t;
+  amt                     : nat;
 ]
+
+type set_min_register_t is nat
+
+type set_min_betting_t  is nat
 
 type get_random_t       is [@layout:comb] record [
   _from                    : nat;
@@ -51,6 +84,8 @@ type action_t           is
 (* ADMIN *)
 | Set_admin               of set_admin_t
 | Confirm_admin           of confirm_admin_t
+| Set_min_register_time   of set_min_register_t
+| Set_min_betting_time    of set_min_betting_t
 
 type setup_func_t       is [@layout:comb] record [
   idx                     : nat;
@@ -73,4 +108,4 @@ type full_action_t      is
 | Use                     of action_t
 | Setup_func              of setup_func_t
 
-const game_methods_max_index : nat = 4n;
+const game_methods_max_index : nat = 6n;

@@ -3,6 +3,8 @@ import { InMemorySigner } from "@taquito/signer";
 
 import { confirmOperation } from "../../scripts/confirmation";
 
+import { BigNumber } from "bignumber.js";
+
 import env from "../../env";
 
 const defaultNetwork = "development";
@@ -61,3 +63,7 @@ export class Utils {
 }
 
 export const zeroAddress: string = "tz1ZZZZZZZZZZZZZZZZZZZZZZZZZZZZNkiRg";
+
+export const uUSD_PRECISION: BigNumber = new BigNumber(10 ** 12);
+
+export const PRECISION: BigNumber = new BigNumber(10 ** 18);
