@@ -14,27 +14,23 @@ import { ubineticStorage } from "../../storage/test/Ubinetic";
 import { UbineticProxy } from "test/helpers/UbineticProxy";
 import { Ubinetic } from "test/helpers/Ubinetic";
 
-import {
-  Common,
-  UbineticProxy as UbineticProxyErrors,
-  RandomizerProxy as RandomizerProxyErrors,
-} from "test/helpers/Errors";
+import { Common } from "test/helpers/Errors";
 
-import { randomizerStorage } from "../../storage/test/Randomizer";
 import { randomizerProxyStorage } from "../../storage/RandomizerProxy";
+import { randomizerStorage } from "../../storage/test/Randomizer";
 
+import { RandomizerProxy } from "test/helpers/RandomizerProxy";
 import { Randomizer } from "test/helpers/Randomizer";
 import { SBAccount } from "test/types/Common";
-import { RandomizerProxy } from "test/helpers/RandomizerProxy";
 
 chai.use(require("chai-bignumber")(BigNumber));
 
 describe("RandomizerProxy", async () => {
+  var randomizerProxy: RandomizerProxy;
+  var ubineticProxy: UbineticProxy;
   var randomizer: Randomizer;
   var ubinetic: Ubinetic;
-  var ubineticProxy: UbineticProxy;
   var utils: Utils;
-  var randomizerProxy: RandomizerProxy;
 
   var alice: SBAccount = accounts.alice;
   var bob: SBAccount = accounts.bob;
@@ -114,7 +110,7 @@ describe("RandomizerProxy", async () => {
     expect(randomizerProxy.storage.pending_admin).to.equal(zeroAddress);
   });
 
-  it("should fail if not admin is trying to change ubinetic contract address", async () => {
+  it("should fail if not admin is trying to change randomizer contract address", async () => {
     await utils.setProvider(alice.sk);
     await rejects(randomizerProxy.changeRandomizer(alice.pkh), (err: Error) => {
       expect(err.message).to.equal(Common.ERR_NOT_ADMIN);
@@ -123,7 +119,7 @@ describe("RandomizerProxy", async () => {
     });
   });
 
-  it("should change ubinetic contract address by admin", async () => {
+  it("should change randomizer contract address by admin", async () => {
     const randomizer: string = bob.pkh;
 
     await utils.setProvider(bob.sk);
@@ -149,6 +145,7 @@ describe("RandomizerProxy", async () => {
     );
 
     const epoch: BigNumber = new BigNumber(0);
+
     entropy = await ubineticProxy.contract.contractViews
       .get_entropy(epoch)
       .executeView({ viewCaller: alice.pkh });
@@ -176,6 +173,6 @@ describe("RandomizerProxy", async () => {
       })
       .executeView({ viewCaller: alice.pkh });
 
-    console.log(random.toString());
+    console.log(random.toFixed());
   });
 });

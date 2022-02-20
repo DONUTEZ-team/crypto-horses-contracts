@@ -17,7 +17,5 @@ function main(
   case action of
   | Set_admin(admin)              -> set_admin(admin, s)
   | Confirm_admin                 -> confirm_admin(s)
-  | Change_randomizer(randomizer) -> change_randomizer(
-                                      randomizer, s
-                                    )
+  | Change_randomizer(randomizer) -> change_randomizer(randomizer, s)
   end
