@@ -30,3 +30,19 @@ export type LaunchRace = {
   betting_start: string;
   race_start: string;
 };
+
+export type Race = {
+  bids: MichelsonMap<MichelsonMapKey, unknown>;
+  participants: MichelsonMap<MichelsonMapKey, unknown>;
+  name: string;
+  location: string;
+  rid: BigNumber;
+  registration_fee: BigNumber;
+  min_bid: BigNumber;
+  bid_step: BigNumber;
+  max_participants_count: BigNumber;
+  participants_count: BigNumber;
+  registration_start: string;
+  betting_start: string;
+  race_start: string;
+};

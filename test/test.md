@@ -35,8 +35,8 @@
    - ✅ should fail if registration start time is too low;
    - ✅ should fail if betting start time is too low;
    - ✅ should fail if race start time is too low;
-   - ❌ should launch race - 1;
-   - ❌ should launch race - 2.
+   - ✅ should launch race - 1;
+   - ✅ should launch race - 2.
 
 2. `register_horse`:
 

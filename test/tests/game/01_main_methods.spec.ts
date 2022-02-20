@@ -15,9 +15,9 @@ import { gameStorage } from "../../../storage/Game";
 
 import { Common, Game as GameErrors } from "test/helpers/Errors";
 import { UbineticProxy } from "test/helpers/UbineticProxy";
+import { LaunchRace, Race } from "test/types/Game";
 import { Ubinetic } from "test/helpers/Ubinetic";
 import { SBAccount } from "test/types/Common";
-import { LaunchRace } from "test/types/Game";
 import { Game } from "test/helpers/Game";
 import { FA2 } from "test/helpers/FA2";
 
@@ -179,7 +179,7 @@ describe("Game (main methods)", async () => {
   it("should launch race - 1", async () => {
     const expectedRaceId: BigNumber = new BigNumber(0);
     const params: LaunchRace = {
-      name: "Race",
+      name: "Race 1",
       location: "Ipodrom",
       registration_fee: new BigNumber(1).multipliedBy(uUSD_PRECISION),
       min_bid: new BigNumber(1).multipliedBy(uUSD_PRECISION),
@@ -201,14 +201,90 @@ describe("Game (main methods)", async () => {
 
     await game.launchRace(params);
     await game.updateStorage({
-      races: [expectedRaceId.toFixed()],
+      races: [expectedRaceId],
     });
 
-    console.log(game.storage.storage);
-    console.log(game.storage.storage.races[expectedRaceId.toFixed()]);
+    const race: Race = game.storage.storage.races[expectedRaceId.toFixed()];
 
     expect(game.storage.storage.races_count).to.be.bignumber.equal(
       expectedRaceId.plus(1)
+    );
+    expect(race.name).to.be.equal(params.name);
+    expect(race.location).to.be.equal(params.location);
+    expect(race.rid).to.be.bignumber.equal(expectedRaceId);
+    expect(race.registration_fee).to.be.bignumber.equal(
+      params.registration_fee
+    );
+    expect(race.min_bid).to.be.bignumber.equal(params.min_bid);
+    expect(race.bid_step).to.be.bignumber.equal(params.bid_step);
+    expect(race.max_participants_count).to.be.bignumber.equal(
+      params.max_participants_count
+    );
+    expect(race.participants_count).to.be.bignumber.equal(new BigNumber(0));
+    expect(String(Date.parse(race.registration_start) / 1000)).to.be.equal(
+      params.registration_start
+    );
+    expect(String(Date.parse(race.betting_start) / 1000)).to.be.equal(
+      params.betting_start
+    );
+    expect(String(Date.parse(race.race_start) / 1000)).to.be.equal(
+      params.race_start
+    );
+  });
+
+  it("should launch race - 2", async () => {
+    const expectedRaceId: BigNumber = new BigNumber(1);
+    const params: LaunchRace = {
+      name: "Race 2",
+      location: "New York",
+      registration_fee: new BigNumber(10).multipliedBy(uUSD_PRECISION),
+      min_bid: new BigNumber(5).multipliedBy(uUSD_PRECISION),
+      bid_step: new BigNumber(2).multipliedBy(uUSD_PRECISION),
+      max_participants_count: new BigNumber(10),
+      registration_start: String(
+        Date.parse((await utils.tezos.rpc.getBlockHeader()).timestamp) / 1000 +
+          60
+      ),
+      betting_start: String(
+        Date.parse((await utils.tezos.rpc.getBlockHeader()).timestamp) / 1000 +
+          120
+      ),
+      race_start: String(
+        Date.parse((await utils.tezos.rpc.getBlockHeader()).timestamp) / 1000 +
+          180
+      ),
+    };
+
+    await game.launchRace(params);
+    await game.updateStorage({
+      races: [expectedRaceId],
+    });
+
+    const race: Race = game.storage.storage.races[expectedRaceId.toFixed()];
+
+    expect(game.storage.storage.races_count).to.be.bignumber.equal(
+      expectedRaceId.plus(1)
+    );
+    expect(race.name).to.be.equal(params.name);
+    expect(race.location).to.be.equal(params.location);
+    expect(race.rid).to.be.bignumber.equal(expectedRaceId);
+    expect(race.registration_fee).to.be.bignumber.equal(
+      params.registration_fee
+    );
+    expect(race.min_bid).to.be.bignumber.equal(params.min_bid);
+    expect(race.bid_step).to.be.bignumber.equal(params.bid_step);
+    expect(race.max_participants_count).to.be.bignumber.equal(
+      params.max_participants_count
+    );
+    expect(race.participants_count).to.be.bignumber.equal(new BigNumber(0));
+    expect(String(Date.parse(race.registration_start) / 1000)).to.be.equal(
+      params.registration_start
+    );
+    expect(String(Date.parse(race.betting_start) / 1000)).to.be.equal(
+      params.betting_start
+    );
+    expect(String(Date.parse(race.race_start) / 1000)).to.be.equal(
+      params.race_start
     );
   });
 });
