@@ -12,7 +12,7 @@
     "migrate": "yarn compile && ts-node scripts/cli.ts migrate",
     "migrate-hangzhounet": "yarn compile && ts-node scripts/cli.ts migrate -n hangzhounet",
     "migrate-mainnet": "yarn compile && ts-node scripts/cli.ts migrate -n mainnet",
-    "test": "ts-mocha --paths test/tests/*.spec.ts --bail"
+    "test": "ts-mocha --paths test/tests/**/*.spec.ts --bail"
   },
   "repository": {
     "type": "git",

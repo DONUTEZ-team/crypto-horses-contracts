@@ -1,8 +1,11 @@
-export enum DexCore {
+export enum Game {
   ERR_UNKNOWN_FUNC = "100",
   ERR_CANT_UNPACK_LAMBDA = "101",
   ERR_HIGH_FUNC_INDEX = "102",
   ERR_FUNC_SET = "103",
+  ERR_TOO_LOW_REGISTRATION_START = "104",
+  ERR_TOO_LOW_BETTING_START = "105",
+  ERR_TOO_LOW_RACE_START = "106",
 }
 
 export enum Common {

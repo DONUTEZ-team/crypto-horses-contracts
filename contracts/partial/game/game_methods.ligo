@@ -5,12 +5,14 @@ function call_game(
   block {
     const id : nat = case action of
     (* GAME *)
-    | Launch_race(_)          -> 0n
-    | Register_horse(_)       -> 1n
-    | Bet(_)                  -> 2n
+    | Launch_race(_)           -> 0n
+    | Register_horse(_)        -> 1n
+    | Bet(_)                   -> 2n
     (* ADMIN *)
-    | Set_admin(_)            -> 3n
-    | Confirm_admin(_)        -> 4n
+    | Set_admin(_)             -> 3n
+    | Confirm_admin(_)         -> 4n
+    | Set_min_register_time(_) -> 5n
+    | Set_min_betting_time(_)  -> 6n
     end;
 
     const lambda_bytes : bytes = unwrap(s.game_lambdas[id], Game.err_unknown_func);

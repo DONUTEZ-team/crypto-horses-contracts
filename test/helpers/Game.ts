@@ -13,11 +13,13 @@ import fs from "fs";
 
 import env from "../../env";
 
+import { BigNumber } from "bignumber.js";
+
 import { confirmOperation } from "../../scripts/confirmation";
 
 import gameLambdas from "../../build/lambdas/game_lambdas.json";
 
-import { GameStorage } from "../types/Game";
+import { GameStorage, LaunchRace } from "../types/Game";
 
 export class Game {
   contract: Contract;
@@ -123,9 +125,53 @@ export class Game {
     }
   }
 
-  async bet(): Promise<TransactionOperation> {
+  async launchRace(params: LaunchRace): Promise<TransactionOperation> {
     const operation: TransactionOperation = await this.contract.methodsObject
-      .bet([])
+      .launch_race(params)
+      .send();
+
+    await confirmOperation(this.tezos, operation.hash);
+
+    return operation;
+  }
+
+  async setAdmin(admin: string): Promise<TransactionOperation> {
+    const operation: TransactionOperation = await this.contract.methods
+      .set_admin(admin)
+      .send();
+
+    await confirmOperation(this.tezos, operation.hash);
+
+    return operation;
+  }
+
+  async confirmAdmin(): Promise<TransactionOperation> {
+    const operation: TransactionOperation = await this.contract.methods
+      .confirm_admin([])
+      .send();
+
+    await confirmOperation(this.tezos, operation.hash);
+
+    return operation;
+  }
+
+  async setMinRegisterTime(
+    minRegisterTime: BigNumber
+  ): Promise<TransactionOperation> {
+    const operation: TransactionOperation = await this.contract.methods
+      .set_min_register_time(minRegisterTime)
+      .send();
+
+    await confirmOperation(this.tezos, operation.hash);
+
+    return operation;
+  }
+
+  async setMinBettingTime(
+    minBettingTime: BigNumber
+  ): Promise<TransactionOperation> {
+    const operation: TransactionOperation = await this.contract.methods
+      .set_min_betting_time(minBettingTime)
       .send();
 
     await confirmOperation(this.tezos, operation.hash);

@@ -1,6 +1,6 @@
 import { ViewSimulationError } from "@taquito/taquito";
 
-import { Utils, zeroAddress } from "../helpers/Utils";
+import { Utils, zeroAddress } from "../../helpers/Utils";
 
 import { rejects } from "assert";
 
@@ -8,10 +8,10 @@ import chai, { expect } from "chai";
 
 import { BigNumber } from "bignumber.js";
 
-import accounts from "../../scripts/sandbox/accounts";
+import accounts from "../../../scripts/sandbox/accounts";
 
-import { ubineticProxyStorage } from "../../storage/UbineticProxy";
-import { ubineticStorage } from "../../storage/test/Ubinetic";
+import { ubineticProxyStorage } from "../../../storage/UbineticProxy";
+import { ubineticStorage } from "../../../storage/test/Ubinetic";
 
 import { UbineticProxy } from "test/helpers/UbineticProxy";
 import { Ubinetic } from "test/helpers/Ubinetic";

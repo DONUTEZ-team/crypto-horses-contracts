@@ -1,8 +1,11 @@
 module Game is {
-  const err_unknown_func       : string = "100";
-  const err_cant_unpack_lambda : string = "101";
-  const err_high_func_index    : string = "102";
-  const err_func_set           : string = "103";
+  const err_unknown_func               : string = "100";
+  const err_cant_unpack_lambda         : string = "101";
+  const err_high_func_index            : string = "102";
+  const err_func_set                   : string = "103";
+  const err_too_low_registration_start : string = "104";
+  const err_too_low_betting_start      : string = "105";
+  const err_to_low_race_start          : string = "106";
 }
 
 module Common is {
