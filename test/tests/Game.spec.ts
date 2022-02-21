@@ -10,11 +10,13 @@ import { randomizerStorage } from "../../storage/test/Randomizer";
 import { ubineticStorage } from "../../storage/test/Ubinetic";
 import { fa2Storage } from "../../storage/test/FA2";
 import { gameStorage } from "../../storage/Game";
+import { horseStorage } from "../../storage/Horse";
 
 import { Randomizer } from "test/helpers/Randomizer";
 import { Ubinetic } from "test/helpers/Ubinetic";
 import { SBAccount } from "test/types/Common";
 import { Game } from "test/helpers/Game";
+import { Horse } from "test/helpers/Horse";
 import { FA2 } from "test/helpers/FA2";
 
 chai.use(require("chai-bignumber")(BigNumber));
@@ -25,6 +27,7 @@ describe("Game", async () => {
   var uusd: FA2;
   var utils: Utils;
   var game: Game;
+  var horse: Horse;
 
   var alice: SBAccount = accounts.alice;
   var bob: SBAccount = accounts.bob;

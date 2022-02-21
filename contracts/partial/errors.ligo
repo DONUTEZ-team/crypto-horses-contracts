@@ -18,3 +18,8 @@ module UbineticProxy is {
 module RandomizerProxy is {
   const err_randomizer_get_random_between_entropy_bytes_view_404 : string = "400";
 }
+
+module Horse is {
+  const err_bet_betting_part_not_started : string = "500";
+  const err_bet_horse_not_found : string = "501";
+}

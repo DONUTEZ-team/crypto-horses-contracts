@@ -29,3 +29,9 @@ function unwrap(
   | Some(instance) -> instance
   | None           -> (failwith(error) : _a)
   end
+
+function sub(const minuend : nat; const subtrahend : nat) : nat is
+  case is_nat(minuend - subtrahend) of
+    | None -> (failwith("underflow") : nat)
+    | Some(value) -> value
+  end
