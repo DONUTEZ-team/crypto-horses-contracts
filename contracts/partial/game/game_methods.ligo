@@ -13,6 +13,11 @@ function call_game(
     | Confirm_admin(_)         -> 4n
     | Set_min_register_time(_) -> 5n
     | Set_min_betting_time(_)  -> 6n
+    (* FA2 *)
+    | Transfer(_)              -> 7n
+    | Update_operators(_)      -> 8n
+    | Balance_of(_)            -> 9n
+    | Mint(_)                  -> 10n
     end;
 
     const lambda_bytes : bytes = unwrap(s.game_lambdas[id], Game.err_unknown_func);

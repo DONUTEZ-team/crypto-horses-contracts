@@ -26,5 +26,21 @@
   {
     "index": 6,
     "name": "set_min_betting_time"
+  },
+  {
+    "index": 7,
+    "name": "transfer"
+  },
+  {
+    "index": 8,
+    "name": "update_operators"
+  },
+  {
+    "index": 9,
+    "name": "balance_of"
+  },
+  {
+    "index": 10,
+    "name": "mint"
   }
 ]
