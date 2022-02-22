@@ -32,6 +32,11 @@ type race_t             is [@layout:comb] record [
 
 type storage_t          is [@layout:comb] record [
   races                   : big_map(rid_t, race_t);
+  ledger                  : big_map((address * token_id_t), nat);
+  accounts                : big_map((address * token_id_t), account_t);
+  token_info              : big_map((address * token_id_t), token_info_t);
+  token_metadata          : big_map(token_id_t, map(string, bytes));
+  free_token              : set(address);
   uusd_token              : address;
   ubinetic_proxy          : address;
   randomizer_proxy        : address;
@@ -41,6 +46,7 @@ type storage_t          is [@layout:comb] record [
   races_count             : nat;
   min_registration_period : nat;
   min_betting_period      : nat;
+  tokens_count            : nat;
 ]
 
 type launch_race_t      is [@layout:comb] record [
@@ -69,6 +75,11 @@ type set_min_register_t is nat
 
 type set_min_betting_t  is nat
 
+type mint_t             is [@layout:comb] record [
+  name                    : string;
+  token_metadata          : map(string, bytes);
+]
+
 type get_random_t       is [@layout:comb] record [
   _from                    : nat;
   _to                      : nat;
@@ -86,6 +97,11 @@ type action_t           is
 | Confirm_admin           of confirm_admin_t
 | Set_min_register_time   of set_min_register_t
 | Set_min_betting_time    of set_min_betting_t
+(* FA2 *)
+| Transfer                of transfers_t
+| Update_operators        of update_operators_t
+| Balance_of              of balance_of_t
+| Mint                    of mint_t
 
 type setup_func_t       is [@layout:comb] record [
   idx                     : nat;
@@ -108,4 +124,4 @@ type full_action_t      is
 | Use                     of action_t
 | Setup_func              of setup_func_t
 
-const game_methods_max_index : nat = 6n;
+const game_methods_max_index : nat = 10n;

@@ -1,5 +1,7 @@
 #include "../partial/errors.ligo"
 
+#include "../partial/game/fa2/fa2_types.ligo"
+
 #include "../partial/common_types.ligo"
 
 #include "../partial/utils.ligo"
@@ -10,6 +12,8 @@
 #include "../partial/game/game_helpers.ligo"
 #include "../partial/game/game_methods.ligo"
 #include "../partial/game/game_lambdas.ligo"
+
+#include "../partial/game/fa2/fa2_lambdas.ligo"
 
 function main(
   const action          : full_action_t;
