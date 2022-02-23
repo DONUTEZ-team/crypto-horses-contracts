@@ -40,7 +40,6 @@ type storage_t          is [@layout:comb] record [
   uusd_token              : address;
   ubinetic_proxy          : address;
   randomizer_proxy        : address;
-  horse_nft               : address;
   admin                   : address;
   pending_admin           : address;
   races_count             : nat;

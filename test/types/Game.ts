@@ -5,15 +5,20 @@ import { BigNumber } from "bignumber.js";
 export type GameStorage = {
   storage: {
     races: MichelsonMap<MichelsonMapKey, unknown>;
+    ledger: MichelsonMap<MichelsonMapKey, unknown>;
+    accounts: MichelsonMap<MichelsonMapKey, unknown>;
+    token_info: MichelsonMap<MichelsonMapKey, unknown>;
+    token_metadata: MichelsonMap<MichelsonMapKey, unknown>;
+    free_token: string[];
     uusd_token: string;
     ubinetic_proxy: string;
     randomizer_proxy: string;
-    horse_nft: string;
     admin: string;
     pending_admin: string;
     races_count: BigNumber;
     min_registration_period: BigNumber;
     min_betting_period: BigNumber;
+    tokens_count: BigNumber;
   };
   game_lambdas: MichelsonMap<MichelsonMapKey, unknown>;
   metadata: MichelsonMap<MichelsonMapKey, unknown>;
